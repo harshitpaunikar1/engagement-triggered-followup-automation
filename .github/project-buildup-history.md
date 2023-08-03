@@ -24,3 +24,7 @@
 
 - Task summary: Came back after lunch and realized the output formatting looked messy when printed, so added a cleaner display block.
 - Deliverable: One of those satisfying small wins.
+## 2023-08-03 - Day 4: User flow
+
+- Task summary: Ended up revisiting this in the evening — updated the requirements file — had missed one indirect dependency.
+- Deliverable: Minor but worth doing.
