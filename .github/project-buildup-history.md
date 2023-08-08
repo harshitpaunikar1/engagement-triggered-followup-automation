@@ -52,3 +52,7 @@
 
 - Task summary: One more pass: pushed a tiny fix after a teammate's comment — nothing major, just a wording issue in the output.
 - Deliverable: Solid now, moving on.
+## 2023-08-08 - Day 7: HTML scaffold
+
+- Task summary: This was the middle stretch where the project started feeling real. I kept going and tried to build the base page structure or component skeleton, then cleaned up whatever looked confusing or weak from the earlier days. By now I had enough structure to keep going without staring at the screen too long, which honestly helped a lot. This kind of work is mostly small decisions stacked together, even if it does not look dramatic from outside.
+- Deliverable: Ended the day with initial UI structure in hand, plus a few side notes on what still needed fixing later. It was not super polished, just stable enough that I felt okay moving forward.
