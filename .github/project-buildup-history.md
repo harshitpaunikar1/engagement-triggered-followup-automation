@@ -68,3 +68,7 @@
 
 - Task summary: Circled back: pushed a tiny fix after a teammate's comment — nothing major, just a wording issue in the output.
 - Deliverable: One of those satisfying small wins.
+## 2023-08-10 - Day 9: Interactions
+
+- Task summary: Closer to the end, I was mostly tightening things up instead of inventing new scope. The job for the day was to add the minimum JavaScript interactions needed to make the flow understandable so the final result looked a bit more complete. The middle part always takes longer than it should, mostly becuase one fix usually reveals two more things to clean up. A good chunk of the day went into making the flow feel believable from a user point of view.
+- Deliverable: Ended the day with working interactions in hand, plus a few side notes on what still needed fixing later. There were still a couple of loose parts, but nothing serious enough to block the next step.
