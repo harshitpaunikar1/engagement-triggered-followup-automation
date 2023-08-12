@@ -80,3 +80,7 @@
 
 - Task summary: Ended up revisiting this in the evening — added inline comments in the dense sections — would have been confusing to revisit without them.
 - Deliverable: Pushed before end of day.
+## 2023-08-12 - Day 9: Interactions
+
+- Task summary: Sunday evening, couldn't leave the failing assert alone. Tracked it down to a missing sort step. Resolved.
+- Deliverable: Solid now, moving on.
