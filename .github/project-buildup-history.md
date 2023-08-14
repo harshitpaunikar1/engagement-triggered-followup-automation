@@ -84,3 +84,7 @@
 
 - Task summary: Sunday evening, couldn't leave the failing assert alone. Tracked it down to a missing sort step. Resolved.
 - Deliverable: Solid now, moving on.
+## 2023-08-14 - Day 11: README check
+
+- Task summary: Closer to the end, I was mostly tightening things up instead of inventing new scope. The job for the day was to write a README that explains the problem, solution, and how to review the project so the final result looked a bit more complete. I was not trying to add anything fancy here, just making sure the thing looked complete enough to show someone. I was also trying to keep the idea grounded so it did not drift into random features for no reason.
+- Deliverable: Ended the day with project README in hand, plus a few side notes on what still needed fixing later. I also left myself a few rough reminders for the next day so I would not have to rediscover the same context again.
