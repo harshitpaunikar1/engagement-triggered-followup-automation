@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lifecycle Automation Architecture</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* 
+      DESIGN SYSTEM: "Systems Documentation"
+      Black and white only. Typography-driven.
+      Heavily monospaced headers, strict columns, system state h2s.
+    */
+    :root {
+      --bg: #111111;
+      --text: #eaeaea;
+      --text-muted: #888888;
+      --border-outer: #f5f5f5;
+      --border-inner: #333333;
+      --primary: #ffffff;
+      --f-prose: 'IBM Plex Sans', sans-serif;
+      --f-mono: 'IBM Plex Mono', monospace;
+      --code-bg: #000000;
+      --code-text: #f5f5f5;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--f-prose);
+      font-size: 1.05rem;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 5rem;
+    }
+
+    /* Main Container with strict borders */
+    .docs-shell {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem;
+      border-left: 1px solid var(--border-inner);
+      border-right: 1px solid var(--border-inner);
+    }
+
+    header {
+      border-bottom: 2px solid var(--border-inner);
+      padding-bottom: 3rem;
+      margin-bottom: 4rem;
+    }
+
+    .doc-meta {
+      font-family: var(--f-mono);
+      font-size: 0.85rem;
+      color: var(--bg);
+      background-color: var(--primary);
+      display: inline-block;
+      padding: 0.35rem 0.75rem;
+      margin-bottom: 2rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    h1 {
+      font-family: var(--f-mono);
+      font-size: 3rem;
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.05em;
+      margin-bottom: 1.5rem;
+      text-transform: uppercase;
+    }
+
+    .abstract {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 800px;
+    }
+
+    /* Strict Column Content */
+    .system-container {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      grid-gap: 3rem;
+      margin-bottom: 5rem;
+    }
+
+    .nav-column {
+      font-family: var(--f-mono);
+      font-size: 0.85rem;
+      border-right: 1px dashed var(--border-inner);
+      padding-right: 1rem;
+    }
+
+    .nav-column ul {
+      list-style-type: none;
+      position: sticky;
+      top: 2rem;
+    }
+
+    .nav-column li {
+      margin-bottom: 1rem;
+      color: var(--text-muted);
+    }
+    
+    .nav-column li.active {
+      color: var(--primary);
+      font-weight: 700;
+    }
+    
+    .nav-column li.active::before {
+      content: "> ";
+    }
+
+    /* System State H2s */
+    h2 {
+      font-family: var(--f-mono);
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-top: 5rem;
+      margin-bottom: 2rem;
+      color: var(--primary);
+      background-color: var(--border-inner);
+      padding: 0.5rem 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+    }
+
+    /* Code & Payloads */
+    pre {
+      background-color: var(--code-bg);
+      color: var(--code-text);
+      font-family: var(--f-mono);
+      font-size: 0.85rem;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      border: 1px solid var(--border-inner);
+      overflow-x: auto;
+    }
+
+    /* SVGs */
+    .vector-block {
+      margin: 4rem 0;
+      border: 1px solid var(--border-inner);
+      padding: 2rem;
+      background-color: #000;
+    }
+    
+    .schema-title {
+      font-family: var(--f-mono);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-inner);
+      padding-bottom: 0.5rem;
+    }
+
+    svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .caption {
+      font-family: var(--f-prose);
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+      margin-top: 1.5rem;
+      border-left: 2px solid var(--border-inner);
+      padding-left: 1rem;
+    }
+
+    @media (max-width: 900px) {
+      .system-container {
+        grid-template-columns: 1fr;
+      }
+      .nav-column {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="docs-shell">
+
+  <header>
+    <div class="doc-meta">Architecture Specification // Rev 2.1</div>
+    <h1>Lifecycle State Automation</h1>
+    <p class="abstract">Marketing automation guides treat triggers as a copywriting exercise. In reality, scaling personalized, engagement-triggered follow-ups is an infrastructure engineering challenge. When a user downloads a technical whitepaper, firing a blind email five minutes later exposes the brand as robotic. Real automation is defined by its state-machine logic: catching webhook payloads asynchronously, enforcing waiting periods, resolving race conditions, and executing strict terminal states before transmitting payload events to an outbound queue.</p>
+  </header>
+
+  <div class="system-container">
+    <div class="nav-column">
+      <ul>
+        <li>STATE_00: OVERVIEW</li>
+        <li class="active">STATE_01: INGESTION</li>
+        <li>STATE_02: WAIT_MUTATION</li>
+        <li>STATE_03: DEDUPLICATION</li>
+        <li>STATE_04: TERMINAL_EVAL</li>
+      </ul>
+    </div>
+
+    <div class="core-column">
+      
+      <p>The standard failure mode of early automation builds is assuming synchronicity. A user clicks a link, the system logs the click, and the system attempts to send an email in the same thread. When volume spikes, or an external SMTP server lags, the database connection pools exhaust and the application crashes.</p>
+
+      <p>The fundamental rule of event-driven infrastructure is isolation. User engagement happens on the client side. Logic processing happens in an isolated worker node. Outbound transmission happens via a decoupled queue. The only thread connecting them is standard JSON webhook payloads passed over HTTP.</p>
+
+      <h2>STATE_01: INGESTION // ASYNC WEBHOOKS</h2>
+
+      <p>A triggered sequence begins precisely when an engagement mechanism (e.g., a PDF download gate) emits an event. The primary ingestion API exists strictly to catch the payload, authenticate it, drop it into a Redis queue, and immediately return a <code>200 OK</code>. It does not validate the user's history or execute state transitions. If the ingestion API does anything other than cache the event, it becomes a severe bottleneck.</p>
+
+<pre><code><span style="color:#888;">// INGESTION PAYLOAD SCHEMA (Validated via schema registry)</span>
+{
+  <span style="color:#fff;">"event_id"</span>: <span style="color:#bbb;">"evt_0989fxa_8412"</span>,
+  <span style="color:#fff;">"timestamp"</span>: <span style="color:#bbb;">"2026-04-26T14:04:12Z"</span>,
+  <span style="color:#fff;">"actor_id"</span>: <span style="color:#bbb;">"usr_944b_49x"</span>,
+  <span style="color:#fff;">"event_type"</span>: <span style="color:#bbb;">"asset_download"</span>,
+  <span style="color:#fff;">"context"</span>: {
+    <span style="color:#fff;">"asset_id"</span>: <span style="color:#bbb;">"wp_infrastructure_2026"</span>,
+    <span style="color:#fff;">"source_ip"</span>: <span style="color:#bbb;">"192.168.1.1"</span>
+  }
+}
+<span style="color:#888;">// The ingestion service drops this to Redis and terminates its thread.</span>
+</code></pre>
+
+      <h2>STATE_02: WAIT_MUTATION // DELAYED EXECUTION</h2>
+
+      <p>Human interaction demands breathing room. If you send a highly-tailored "follow-up" email three seconds after a PDF is downloaded, the recipient instantly recognizes the automation, destroying the implicit trust of the engagement. State machines handle this via <code>Wait States</code>.</p>
+
+      <p>When the worker pulls the event from the queue, it evaluates the rule matrix and determines a 24-hour buffer is required. Crucially, the worker does not simply call <code>sleep(86400)</code> and hold a thread open for a day. It mutates the state of the entity record in the database, setting a <code>next_action_at</code> UNIX timestamp, and abandons the job. A separate cron-driven scheduler sweeps the database every 60 seconds, looking purely for records where <code>next_action_at <= NOW()</code>.</p>
+
+      <div class="vector-block">
+        <div class="schema-title">FIG 1 // ASYNCHRONOUS SWIMLANES</div>
+        <svg viewBox="0 0 800 350" preserveAspectRatio="xMidYMid meet">
+          <!-- Swimlane Definitions -->
+          <line x1="150" y1="20" x2="150" y2="330" stroke="#333" stroke-width="2" />
+          <line x1="380" y1="20" x2="380" y2="330" stroke="#333" stroke-width="2" />
+          <line x1="610" y1="20" x2="610" y2="330" stroke="#333" stroke-width="2" />
+
+          <!-- Lane Titles -->
+          <text x="75" y="40" font-family="'IBM Plex Mono'" font-size="12" fill="#888" text-anchor="middle">CLIENT UI</text>
+          <text x="265" y="40" font-family="'IBM Plex Mono'" font-size="12" fill="#888" text-anchor="middle">INGESTION API</text>
+          <text x="495" y="40" font-family="'IBM Plex Mono'" font-size="12" fill="#888" text-anchor="middle">WORKER (LOGIC)</text>
+          <text x="705" y="40" font-family="'IBM Plex Mono'" font-size="12" fill="#888" text-anchor="middle">OUTBOUND QUEUE</text>
+
+          <!-- Interaction 1 -->
+          <rect x="30" y="70" width="100" height="30" fill="#fff" />
+          <text x="80" y="89" font-family="'IBM Plex Sans'" font-size="10" font-weight="700" fill="#000" text-anchor="middle">PDF Download</text>
+
+          <path d="M 130 85 L 210 85" stroke="#fff" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+
+          <rect x="220" y="70" width="100" height="30" fill="#222" stroke="#f5f5f5" />
+          <text x="270" y="89" font-family="'IBM Plex Sans'" font-size="10" fill="#fff" text-anchor="middle">Validate/Ack 200</text>
+
+          <!-- Interaction 2: Queue to Worker -->
+          <path d="M 320 85 L 360 85 L 360 135 L 430 135" stroke="#555" stroke-dasharray="4 4" fill="none" marker-end="url(#arrow-dim)" />
+          
+          <rect x="440" y="120" width="110" height="30" fill="#111" stroke="#888" />
+          <text x="495" y="139" font-family="'IBM Plex Mono'" font-size="9" fill="#888" text-anchor="middle">Mutate WaitState (24H)</text>
+
+          <!-- Interaction 3: The Delay -->
+          <path d="M 495 150 L 495 240" stroke="#f5f5f5" stroke-width="4" stroke-dasharray="6 6" fill="none" />
+          <text x="510" y="200" font-family="'IBM Plex Mono'" font-size="10" font-weight="700" fill="#f5f5f5">CRON: T+24Hrs</text>
+
+          <!-- Interaction 4: Wake and Dispatch to Outbound -->
+          <rect x="440" y="240" width="110" height="30" fill="#222" stroke="#f5f5f5" />
+          <text x="495" y="259" font-family="'IBM Plex Mono'" font-size="9" fill="#fff" text-anchor="middle">Evaluate Terminal</text>
+
+          <path d="M 550 255 L 650 255" stroke="#fff" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+
+          <!-- Interaction 5: Outbound Send -->
+          <rect x="660" y="240" width="110" height="30" fill="#fff" stroke="#111" />
+          <text x="715" y="259" font-family="'IBM Plex Sans'" font-size="10" font-weight="700" fill="#000" text-anchor="middle">SMTP Send(Template)</text>
+
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#fff" />
+            </marker>
+            <marker id="arrow-dim" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#555" />
+            </marker>
+          </defs>
+        </svg>
+        <div class="caption">
+          Absolute decoupling allows the front-end to scale independently from the outbound mailing service. The worker logic operates strictly over the database state. Note the 24-hour gap is a hardware-agnostic database state mutation, avoiding long-running thread blocks.
+        </div>
+      </div>
+
+      <h2>STATE_03: DEDUPLICATION // IDEMPOTENCY</h2>
+
+      <p>A user might click the "Download Whitepaper" button four times in five seconds because their browser lagged. If the webhook architecture is naive, it registers four ingestion events. When the 24-hour cron job triggers, the worker pulls all four events and slams the user with four identical welcome emails in a frantic one-second window. The automation immediately looks broken.</p>
+
+      <p>Idempotency locks are mandatory. The automation engine must possess memory. Before advancing to an active state, the logic flowchart requires an atomic lookup against the user's historically executed event hash. If an identically named state mutation exists within a prescribed cool-down window, the worker must violently terminate the duplicate loop.</p>
+
+      <div class="vector-block">
+        <div class="schema-title">FIG 2 // RACE-CONDITION LOCKOUT FLOW</div>
+        <svg viewBox="0 0 800 400" preserveAspectRatio="xMidYMid meet">
+          <!-- Flowchart Start -->
+          <rect x="300" y="20" width="140" height="40" fill="#222" stroke="#fff" rx="20" />
+          <text x="370" y="44" font-family="'IBM Plex Mono'" font-size="10" fill="#fff" text-anchor="middle">WAKE: CRON_TICK</text>
+
+          <path d="M 370 60 L 370 90" stroke="#fff" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+
+          <!-- Diamond: Eval State -->
+          <polygon points="370,90 450,130 370,170 290,130" fill="#000" stroke="#f5f5f5" stroke-width="2" />
+          <text x="370" y="133" font-family="'IBM Plex Mono'" font-size="10" fill="#fff" text-anchor="middle">Check DB HashKey</text>
+          
+          <text x="460" y="120" font-family="'IBM Plex Mono'" font-size="10" fill="#aaa">Exists == TRUE</text>
+          <text x="375" y="195" font-family="'IBM Plex Mono'" font-size="10" fill="#fff">Exists == FALSE</text>
+
+          <!-- Branch 1: Path Kill (Duplicate) -->
+          <path d="M 450 130 L 550 130 L 550 180" stroke="#555" stroke-width="2" fill="none" marker-end="url(#arrow-dim)" stroke-dasharray="4 4" />
+          
+          <rect x="490" y="180" width="120" height="40" fill="#111" stroke="#555" />
+          <text x="550" y="204" font-family="'IBM Plex Mono'" font-size="10" fill="#888" text-anchor="middle">DROP PAYLOAD (DUP)</text>
+          
+          <!-- End Kill -->
+          <path d="M 550 220 L 550 320" stroke="#555" stroke-width="2" fill="none" marker-end="url(#arrow-dim)" />
+          <rect x="500" y="320" width="100" height="30" fill="#111" stroke="#333" />
+          <text x="550" y="340" font-family="'IBM Plex Mono'" font-size="10" fill="#555" text-anchor="middle">TERMINATE</text>
+
+          <!-- Branch 2: Path Exec (Clean) -->
+          <path d="M 370 170 L 370 220" stroke="#fff" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+
+          <rect x="300" y="220" width="140" height="40" fill="#222" stroke="#fff" />
+          <text x="370" y="244" font-family="'IBM Plex Mono'" font-size="10" fill="#fff" text-anchor="middle">Acquire Lock Matrix</text>
+
+          <path d="M 370 260 L 370 300" stroke="#fff" stroke-width="2" fill="none" marker-end="url(#arrow)" />
+
+          <rect x="290" y="300" width="160" height="40" fill="#fff" stroke="#fff" />
+          <text x="370" y="324" font-family="'IBM Plex Sans'" font-size="10" font-weight="700" fill="#000" text-anchor="middle">DISPATCH_MQ_OUTBOUND</text>
+
+        </svg>
+        <div class="caption">
+          Logic Flowchart: Idempotency. System architectures must protect against duplicate client-side triggers. Before any outbound dispatch is authorized, an atomic check verifies if the exact workflow node has already been traversed by this specific user identifier within the defined lockout window. If True, the thread is silently killed without a trace.
+        </div>
+      </div>
+
+      <h2>STATE_04: TERMINAL_EVAL // EXIT CONDITIONS</h2>
+
+      <p>The final constraint of an automated sequence is knowing when to abort. If a user downloads a whitepaper, enters a 24-hour wait state, but explicitly purchases the SaaS subscription within that 24 hours, sending them an introductory "buy now" email at T+24 is an apocalyptic breach of context.</p>
+
+      <p>Every node in a lifecycle sequence must map to a terminal exit condition. Just because the database swept a record out of a <code>Wait State</code> does not mean it is globally authorized to transmit to the Outbound Queue. A master <code>TERMINAL_EVAL</code> hook must execute microseconds before dispatch, interrogating the active CRM state for suppressions (e.g., <code>has_active_subscription == true</code>). If the terminal flag is raised, the entire state machine collapses gracefully, canceling the sequence and writing an abort log. The user experiences nothing. In lifecycle automation, avoiding a bad execution is intrinsically more valuable than forcing a good one.</p>
+
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
