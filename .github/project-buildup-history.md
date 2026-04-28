@@ -26,7 +26,7 @@
 - Deliverable: One of those satisfying small wins.
 ## 2023-08-03 - Day 4: User flow
 
-- Task summary: Ended up revisiting this in the evening — updated the requirements file — had missed one indirect dependency.
+- Task summary: Ended up revisiting this in the evening - updated the requirements file - had missed one indirect dependency.
 - Deliverable: Minor but worth doing.
 ## 2023-08-04 - Day 5: Content outline
 
@@ -34,7 +34,7 @@
 - Deliverable: I wrapped up the day with content outline mostly in place. It was not perfect, but it was good enough to keep the project moving. I also left myself a few rough reminders for the next day so I would not have to rediscover the same context again.
 ## 2023-08-04 - Day 5: Content outline
 
-- Task summary: Got stuck mid-afternoon and had to regroup — wrapped a repeated block in a helper function since it showed up three times.
+- Task summary: Got stuck mid-afternoon and had to regroup - wrapped a repeated block in a helper function since it showed up three times.
 - Deliverable: Solid now, moving on.
 ## 2023-08-05 - Day 5: Content outline
 
@@ -46,11 +46,11 @@
 - Deliverable: Ended the day with system sketch in hand, plus a few side notes on what still needed fixing later. There were still a couple of loose parts, but nothing serious enough to block the next step.
 ## 2023-08-07 - Day 6: Architecture
 
-- Task summary: Noticed something off from this morning — fixed the README section that was missing the setup step — embarrassing oversight.
+- Task summary: Noticed something off from this morning - fixed the README section that was missing the setup step - embarrassing oversight.
 - Deliverable: Should've caught it earlier but better now than later.
 ## 2023-08-07 - Day 6: Architecture
 
-- Task summary: One more pass: pushed a tiny fix after a teammate's comment — nothing major, just a wording issue in the output.
+- Task summary: One more pass: pushed a tiny fix after a teammate's comment - nothing major, just a wording issue in the output.
 - Deliverable: Solid now, moving on.
 ## 2023-08-08 - Day 7: HTML scaffold
 
@@ -66,7 +66,7 @@
 - Deliverable: Ended the day with usable UI in hand, plus a few side notes on what still needed fixing later. I also left myself a few rough reminders for the next day so I would not have to rediscover the same context again.
 ## 2023-08-09 - Day 8: Styling
 
-- Task summary: Circled back: pushed a tiny fix after a teammate's comment — nothing major, just a wording issue in the output.
+- Task summary: Circled back: pushed a tiny fix after a teammate's comment - nothing major, just a wording issue in the output.
 - Deliverable: One of those satisfying small wins.
 ## 2023-08-10 - Day 9: Interactions
 
@@ -78,7 +78,7 @@
 - Deliverable: Ended the day with support visuals in hand, plus a few side notes on what still needed fixing later. It was not super polished, just stable enough that I felt okay moving forward.
 ## 2023-08-11 - Day 10: Artifacts
 
-- Task summary: Ended up revisiting this in the evening — added inline comments in the dense sections — would have been confusing to revisit without them.
+- Task summary: Ended up revisiting this in the evening - added inline comments in the dense sections - would have been confusing to revisit without them.
 - Deliverable: Pushed before end of day.
 ## 2023-08-12 - Day 9: Interactions
 

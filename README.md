@@ -4,7 +4,7 @@
 
 ## Overview
 
-Manual follow-up emails slow sales cycles and let warm leads cool. Teams juggle spreadsheets and inbox reminders, causing inconsistent outreach, delays after key interactions, and little visibility into what works. Without timely, tailored nudges, prospects disengage and pipeline velocity stalls. The risks: lost conversion opportunities, higher acquisition costs, overworked staff chasing threads instead of closing revenue. The business needs a repeatable, measurable way to trigger the right message at the right moment based on engagement signals — opens, clicks, visits, or inactivity — so every lead receives consistent attention without adding headcount.
+Manual follow-up emails slow sales cycles and let warm leads cool. Teams juggle spreadsheets and inbox reminders, causing inconsistent outreach, delays after key interactions, and little visibility into what works. Without timely, tailored nudges, prospects disengage and pipeline velocity stalls. The risks: lost conversion opportunities, higher acquisition costs, overworked staff chasing threads instead of closing revenue. The business needs a repeatable, measurable way to trigger the right message at the right moment based on engagement signals - opens, clicks, visits, or inactivity - so every lead receives consistent attention without adding headcount.
 
 ## Approach
 
